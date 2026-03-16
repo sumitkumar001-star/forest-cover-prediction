@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forest Cover Type Prediction</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            padding: 2rem;
+            background-color: #f4f5f7;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        .grid {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        h1 {
+            text-align: center;
+            color:#b48319;
+            margin-bottom: 2rem;
+        }
+        article {
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            padding: 2rem;
+        }
+        label {
+            font-weight: 600;
+        }
+        button[type="submit"] {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1rem;
+            border-radius: 8px;
+            background-color: #2563eb;
+            border-color: #2563eb;
+        }
+        button[type="submit"]:hover {
+            background-color: #1d4ed8;
+            border-color: #1d4ed8;
+        }
+    </style>
+</head>
+<body>
+    <main class="container">
+        <article>
+            <h1>Forest Cover Type Prediction</h1>
+            <form action="{{ url_for('predict') }}" method="post">
+                <div class="grid">
+                    <!-- Numerical Features -->
+                    <div>
+                        <label for="Elevation">Elevation (meters)</label>
+                        <input type="number" id="Elevation" name="Elevation" placeholder="e.g., 2596" required>
+                    </div>
+                    <div>
+                        <label for="Aspect">Aspect (degrees)</label>
+                        <input type="number" id="Aspect" name="Aspect" placeholder="e.g., 51" required>
+                    </div>
+                    <div>
+                        <label for="Slope">Slope (degrees)</label>
+                        <input type="number" id="Slope" name="Slope" placeholder="e.g., 3" required>
+                    </div>
+                    <div>
+                        <label for="Horizontal_Distance_To_Hydrology">Horizontal Distance to Water (m)</label>
+                        <input type="number" id="Horizontal_Distance_To_Hydrology" name="Horizontal_Distance_To_Hydrology" placeholder="e.g., 258" required>
+                    </div>
+                    <div>
+                        <label for="Vertical_Distance_To_Hydrology">Vertical Distance to Water (m)</label>
+                        <input type="number" id="Vertical_Distance_To_Hydrology" name="Vertical_Distance_To_Hydrology" placeholder="e.g., 0" required>
+                    </div>
+                    <div>
+                        <label for="Horizontal_Distance_To_Roadways">Horizontal Distance to Roadways (m)</label>
+                        <input type="number" id="Horizontal_Distance_To_Roadways" name="Horizontal_Distance_To_Roadways" placeholder="e.g., 510" required>
+                    </div>
+                    <div>
+                        <label for="Hillshade_9am">Hillshade 9am (0-255)</label>
+                        <input type="number" id="Hillshade_9am" name="Hillshade_9am" placeholder="e.g., 221" required>
+                    </div>
+                    <div>
+                        <label for="Hillshade_Noon">Hillshade Noon (0-255)</label>
+                        <input type="number" id="Hillshade_Noon" name="Hillshade_Noon" placeholder="e.g., 232" required>
+                    </div>
+                    <div>
+                        <label for="Hillshade_3pm">Hillshade 3pm (0-255)</label>
+                        <input type="number" id="Hillshade_3pm" name="Hillshade_3pm" placeholder="e.g., 148" required>
+                    </div>
+                    <div>
+                        <label for="Horizontal_Distance_To_Fire_Points">Horizontal Distance to Fire Points (m)</label>
+                        <input type="number" id="Horizontal_Distance_To_Fire_Points" name="Horizontal_Distance_To_Fire_Points" placeholder="e.g., 6279" required>
+                    </div>
+                </div>
+
+                <hr>
+                
+                <!-- Categorical Features -->
+                <div class="grid">
+                    <div>
+                        <label for="Wilderness_Area">Wilderness Area</label>
+                        <select id="Wilderness_Area" name="Wilderness_Area" required>
+                            <option value="1">Area 1</option>
+                            <option value="2">Area 2</option>
+                            <option value="3">Area 3</option>
+                            <option value="4">Area 4</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="Soil_Type">Soil Type</label>
+                        <select id="Soil_Type" name="Soil_Type" required>
+                            {% for i in range(1, 41) %}
+                                <option value="{{ i }}">Type {{ i }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <br>
+                <button type="submit">Predict Cover Type</button>
+            </form>
+        </article>
+    </main>
+</body>
+</html>
