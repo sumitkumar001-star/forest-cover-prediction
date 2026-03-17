@@ -38,7 +38,6 @@ This project predicts the forest cover type (dominant tree species) from cartogr
 ```
 ├── data/              # Dataset
 ├── templates/         # Flask HTML templates
-├── src/               # Training scripts
 ├── saved_models/      # Trained models
 ├── requirements.txt   # Dependencies
 ├── app.py             # Flask app
